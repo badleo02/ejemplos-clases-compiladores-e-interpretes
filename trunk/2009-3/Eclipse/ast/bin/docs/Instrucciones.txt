@@ -1,0 +1,21 @@
+Para generarlo basado en las especificaciones:
+
+1. Ir al directorio ../libs/ y ejecutar: JFlex.jar, 
+   dando como especificación el archivo lexico.flex,
+   que se encuentra en el directorio docs del proyecto, 
+   dando esto como resultado el archivo Scanner.java 
+   el cual debe ser movido a la carpeta Ejemplo1.
+
+2. Ubicarse en el directorio ../docs/ 
+   y ejecutar desde un terminal la instruccion: 
+   java -jar ../libs/java-cup-11a.jar sintactico.cup
+   dando esto como resultado los archivos: parser.java y sym.java
+   los cuales deben ser movidos a la carpeta Ejemplo1.
+
+
+Para compilarlo y ejecutarlo manualmente sin eclipse:
+
+javac -Xlint:deprecation -d . -cp .;java-cup-11a.jar; Scanner.java sym.java parser.java
+
+Para ejecutarlo:
+C:\...\>java -classpath .;java-cup-11a.jar; Ejemplo1.parser

@@ -1,0 +1,68 @@
+package Ejemplo1;
+
+import java_cup.runtime.*;
+import ast.*;
+
+parser code {:
+
+/***********
+SymbolFactory es una nueva caracteristica que ha sido añadida a las version 11a de cup, la cual facilita la implementacion de clases Symbol personalizadas, esto debido a que dicha clase no provee mucha información de contexto que podria ser util para el analisis semantico o ayudar en la construccion del AST
+
+
+Mas informacion en: http://4thmouse.com/index.php/2007/02/15/using-custom-symbols-in-cup/
+***********/
+
+	public static void main(String args[]) throws Exception {
+		parser analizador_sintactico=null;
+		SymbolFactory sf = new DefaultSymbolFactory();
+		if (args.length==0){ 
+			analizador_sintactico=new parser(new Scanner(System.in,sf),sf);
+		}else{ 
+			analizador_sintactico=new parser(new Scanner(new java.io.FileInputStream(args[0]),sf),sf);
+		}
+
+		analizador_sintactico.parse();
+	}
+
+:}
+
+terminal IGUAL, SUMA, POR, PARENTIZQ, PARENTDER;
+terminal Integer NUMERO;
+
+non terminal NodoBase sesion, ecuacion;
+non terminal NodoBase expr;
+
+precedence left SUMA;
+precedence left POR;
+
+sesion ::= sesion ecuacion:ec 
+	     | ecuacion:ec   
+	     ;
+
+ecuacion ::= expr:ex 
+		{: 
+			RESULT = ex;
+			System.out.println("Arbol construido correctamente para la expresion el mismo debe ser evaluado..."); 
+		:} IGUAL;
+
+expr      ::= NUMERO:n
+	      {: 
+			RESULT = new  NodoConstante(n); 
+		   	System.out.println("Creando un nodo de constante para el valor: " + n);
+		:}
+          | expr:izq SUMA expr:der
+	      {: 
+			RESULT= new NodoSuma(izq,der);
+		   	System.out.println("Creando un nodo de suma");
+		:}
+	    | expr:izq POR expr:der
+	      {: 
+			RESULT=new NodoMultiplicacion(izq,der); 
+		   	System.out.println("Creando un nodo de multiplicacion");
+		:}
+	    | PARENTIZQ expr:ex PARENTDER
+	      {: 
+			RESULT=ex; 
+		   	System.out.println("Detectada expresion entre parentesis");
+		:}
+	    ;

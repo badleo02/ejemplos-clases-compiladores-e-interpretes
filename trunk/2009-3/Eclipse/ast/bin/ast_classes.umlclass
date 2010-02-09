@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:uml2tools.notation="http://www.eclipse.org/mdt/uml2tools/gmf/notation/ext/2008" xmi:id="_UJ_p4BUYEd-tPb0BUcH2aw" type="UMLClass" name="ast_classes.umlclass" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_Xbgd8BUYEd-tPb0BUcH2aw" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Xbgd8xUYEd-tPb0BUcH2aw" type="5003">
+      <styles xmi:type="notation:FontStyle" xmi:id="_XdmIoBUYEd-tPb0BUcH2aw" bold="true" italic="true"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Xbgd9BUYEd-tPb0BUcH2aw" type="5019"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_XbqO8BUYEd-tPb0BUcH2aw" type="7001">
+      <children xmi:type="notation:Node" xmi:id="_kHeaQBUYEd-tPb0BUcH2aw" type="3001">
+        <element xmi:type="uml:Property" href="../ast_classes.uml#_kHUpQBUYEd-tPb0BUcH2aw"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_kHeaQRUYEd-tPb0BUcH2aw"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_XbqO8RUYEd-tPb0BUcH2aw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_XbqO8hUYEd-tPb0BUcH2aw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_XbqO8xUYEd-tPb0BUcH2aw"/>
+      <styles xmi:type="notation:CanonicalStyle" xmi:id="_XbqO9BUYEd-tPb0BUcH2aw"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_XbzY4BUYEd-tPb0BUcH2aw" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_XbzY4RUYEd-tPb0BUcH2aw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_XbzY4hUYEd-tPb0BUcH2aw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_XbzY4xUYEd-tPb0BUcH2aw"/>
+      <styles xmi:type="notation:CanonicalStyle" xmi:id="_XbzY5BUYEd-tPb0BUcH2aw"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_XbzY5RUYEd-tPb0BUcH2aw" type="7003">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_XbzY5hUYEd-tPb0BUcH2aw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_XbzY5xUYEd-tPb0BUcH2aw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_XbzY6BUYEd-tPb0BUcH2aw"/>
+      <styles xmi:type="notation:CanonicalStyle" xmi:id="_XbzY6RUYEd-tPb0BUcH2aw"/>
+    </children>
+    <styles xmi:type="notation:CanonicalStyle" xmi:id="_Xbgd8RUYEd-tPb0BUcH2aw"/>
+    <element xmi:type="uml:Class" href="../ast_classes.uml#_XZRpUBUYEd-tPb0BUcH2aw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Xbgd8hUYEd-tPb0BUcH2aw" x="250" y="90"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_UJ_p4RUYEd-tPb0BUcH2aw"/>
+  <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_UJ_p4hUYEd-tPb0BUcH2aw" syncNodes="false"/>
+  <styles xmi:type="notation:FilteringStyle" xmi:id="_UJ_p4xUYEd-tPb0BUcH2aw"/>
+  <element xmi:type="uml:Package" href="../ast_classes.uml#_UEyZwRUYEd-tPb0BUcH2aw"/>
+</notation:Diagram>
