@@ -1,11 +1,15 @@
 package Tiny;
 
-import java_cup.runtime.SymbolFactory;
-import otros.*;
+import java_cup.runtime.*;
+//import otros.*;
 
 %%
+/* Habilitar la compatibilidad con el interfaz CUP para el generador sintactico*/
 %cup
+/* Llamar Scanner a la clase que contiene el analizador Lexico */
 %class Scanner
+
+/*-- DECLARACIONES --*/
 %{
 	public Scanner(java.io.InputStream r, SymbolFactory sf){
 		this(r);
@@ -16,10 +20,30 @@ import otros.*;
 	private SymbolFactory sf;
 	private int lineanum;
 	private boolean debug;
+
+
+/******************************************************************
+BORRAR SI NO SE NECESITA
+	//TODO: Cambiar la SF por esto o ver que se hace
+	//Crear un nuevo objeto java_cup.runtime.Symbol con información sobre el token actual sin valor
+ 	  private Symbol symbol(int type){
+    		return new Symbol(type,yyline,yycolumn);
+	  }
+	//Crear un nuevo objeto java_cup.runtime.Symbol con información sobre el token actual con valor
+	  private Symbol symbol(int type,Object value){
+    		return new Symbol(type,yyline,yycolumn,value);
+	  }
+******************************************************************/
 %}
 %eofval{
     return sf.newSymbol("EOF",sym.EOF);
 %eofval}
+
+/* Acceso a la columna y fila actual de analisis CUP */
+%line
+%column
+
+
 
 digito		= [0-9]
 numero		= {digito}+
@@ -83,10 +107,13 @@ espacio		= [ \t]+
 			return sf.newSymbol("SEMI",sym.SEMI);
 			}
 {numero}        {	if(debug) System.out.println("token NUM");
-			return sf.newSymbol("NUM",sym.NUM);
+			return sf.newSymbol("NUM",sym.NUM,new String(yytext()));
 			}
 {identificador}	{	if(debug) System.out.println("token ID");
-				return sf.newSymbol("ID",sym.ID);
+				//TODO: Verificar esto funciona :(
+				System.out.println("EStoy mandando Token de id de lexico a cup");
+				Symbol mande = sf.newSymbol("ID",sym.ID,new String(yytext()));
+				return mande;
 			}
 {nuevalinea}       {lineanum++;}
 {espacio}    { /* saltos espacios en blanco*/}

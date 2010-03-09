@@ -2,7 +2,7 @@ package Tiny;
 
 import java_cup.runtime.*;
 import ast.*;
-import otros.*;
+//import otros.*;
 
 parser code {:
 
@@ -38,8 +38,8 @@ terminal REPEAT;
 terminal UNTIL;
 terminal READ;
 terminal WRITE;
-terminal ID;
-terminal NUM;
+terminal String ID;
+terminal String NUM;
 terminal ASSIGN;
 terminal EQ;
 terminal LT;
@@ -142,7 +142,7 @@ assign_stmt ::= ID:variable 	{: if(debug) System.out.println("\t regla 6 parte d
 		;
 
 read_stmt   ::= READ ID:variable	{: if(debug) System.out.println("\t regla 7"); 
-					System.out.println("BANDERA AQUI");
+					System.out.println("Leyendo Variable");
 					if(variable!=null)
 					RESULT = new NodoLeer(variable.toString());
 					else{
@@ -205,6 +205,7 @@ factor      ::= LPAREN exp:ex RPAREN	{: if(debug) System.out.println("\t regla 1
 		| ID:variable	{: if(debug) System.out.println("\t regla 12c"); 
 					System.out.println("Devolvi nodo identificador");
 					if(variable!=null){
+					System.out.println("LEXEMA:" + variable.toString());
 					RESULT= new NodoIdentificador(variable.toString());		
 					}else{
 					RESULT = null;
