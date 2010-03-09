@@ -9,9 +9,11 @@ import java_cup.runtime.SymbolFactory;
 		this(r);
 		this.sf=sf;
 		lineanum=0;
+		debug=true;
 	}
 	private SymbolFactory sf;
-	private lineanum;
+	private int lineanum;
+	private boolean debug;
 %}
 %eofval{
     return sf.newSymbol("EOF",sym.EOF);
@@ -21,30 +23,70 @@ digito		= [0-9]
 numero		= {digito}+
 letra			= [a-zA-Z]
 identificador	= {letra}+
-nuevalinea		= \n
+nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
-"if"            {return sf.newSymbol("IF",sym.IF);}
-"then"          {return sf.newSymbol("THEN",sym.THEN);}
-"else"          {return sf.newSymbol("ELSE",sym.ELSE);}
-"end"           {return sf.newSymbol("END",sym.END);}
-"repeat"        {return sf.newSymbol("REPEAT",sym.REPEAT);}
-"until"         {return sf.newSymbol("UNTIL",sym.UNTIL);}
-"read"          {return sf.newSymbol("READ",sym.READ);}
-"write"         {return sf.newSymbol("WRITE",sym.WRITE);}
-":="            {return sf.newSymbol("ASSIGN",sym.ASSIGN);}
-"="             {return sf.newSymbol("EQ",sym.EQ);}
-"<"             {return sf.newSymbol("LT",sym.LT);}
-"+"             {return sf.newSymbol("PLUS",sym.PLUS);}
-"-"             {return sf.newSymbol("MINUS",sym.MINUS);}
-"*"             {return sf.newSymbol("TIMES",sym.TIMES);}
-"/"             {return sf.newSymbol("OVER",sym.OVER);}
-"("             {return sf.newSymbol("LPAREN",sym.LPAREN);}
-")"             {return sf.newSymbol("RPAREN",sym.RPAREN);}
-";"             {return sf.newSymbol("SEMI",sym.SEMI);}
-{numero}        {return sf.newSymbol("NUM",sym.NUM);}
-{identificador}    {return sf.newSymbol("ID",sym.ID);}
+"if"            {	if(debug) System.out.println("token IF");
+			return sf.newSymbol("IF",sym.IF);
+			}
+"then"          { if(debug) System.out.println("token THEN");
+			return sf.newSymbol("THEN",sym.THEN);
+			}
+"else"          {	if(debug) System.out.println("token ELSE");
+			return sf.newSymbol("ELSE",sym.ELSE);
+			}
+"end"           {	if(debug) System.out.println("token END");
+			return sf.newSymbol("END",sym.END);
+			}
+"repeat"        {	if(debug) System.out.println("token REPEAT");
+			return sf.newSymbol("REPEAT",sym.REPEAT);
+			}
+"until"         {	if(debug) System.out.println("token UNTIL");
+			return sf.newSymbol("UNTIL",sym.UNTIL);
+			}
+"read"          {	if(debug) System.out.println("token READ");
+			return sf.newSymbol("READ",sym.READ);
+			}
+"write"         {	if(debug) System.out.println("token WRITE");
+			return sf.newSymbol("WRITE",sym.WRITE);
+			}
+":="            {	if(debug) System.out.println("token ASSIGN");
+			return sf.newSymbol("ASSIGN",sym.ASSIGN);
+			}
+"="             {	if(debug) System.out.println("token EQ");
+			return sf.newSymbol("EQ",sym.EQ);
+			}
+"<"             {	if(debug) System.out.println("token LT");
+			return sf.newSymbol("LT",sym.LT);
+			}
+"+"             {	if(debug) System.out.println("token PLUS");
+			return sf.newSymbol("PLUS",sym.PLUS);
+			}
+"-"             {	if(debug) System.out.println("token MINUS");
+			return sf.newSymbol("MINUS",sym.MINUS);
+			}
+"*"             {	if(debug) System.out.println("token TIMES");
+			return sf.newSymbol("TIMES",sym.TIMES);
+			}
+"/"             {	if(debug) System.out.println("token OVER");
+			return sf.newSymbol("OVER",sym.OVER);
+			}
+"("             {	if(debug) System.out.println("token LPAREN");
+			return sf.newSymbol("LPAREN",sym.LPAREN);
+			}
+")"             {	if(debug) System.out.println("token RPAREN");
+			return sf.newSymbol("RPAREN",sym.RPAREN);
+			}
+";"             {	if(debug) System.out.println("token SEMI");
+			return sf.newSymbol("SEMI",sym.SEMI);
+			}
+{numero}        {	if(debug) System.out.println("token NUM");
+			return sf.newSymbol("NUM",sym.NUM);
+			}
+{identificador}	{	if(debug) System.out.println("token ID");
+				return sf.newSymbol("ID",sym.ID);
+			}
 {nuevalinea}       {lineanum++;}
 {espacio}    { /* saltos espacios en blanco*/}
-"{"[^}]+"}"  { /* salto comentarios */ }
-.               {System.err.println("Caracter Ilegal: "+yytext());}
+"{"[^}]+"}"  { /* salto comentarios */ if(debug) System.out.println("token COMENTARIO"); }
+.               {System.err.println("Caracter Ilegal encontrado en analisis lexico: " + yytext() + "\n");}
