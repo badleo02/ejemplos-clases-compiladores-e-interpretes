@@ -1,6 +1,8 @@
 package Tiny;
 
 import java_cup.runtime.SymbolFactory;
+import otros.*;
+
 %%
 %cup
 %class Scanner

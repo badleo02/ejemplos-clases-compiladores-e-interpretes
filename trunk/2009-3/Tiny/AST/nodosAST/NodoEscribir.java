@@ -21,8 +21,4 @@ public class NodoEscribir extends NodoBase {
 		this.expresion = expresion;
 	}
 	
-	
-	
-	
-	
 }
