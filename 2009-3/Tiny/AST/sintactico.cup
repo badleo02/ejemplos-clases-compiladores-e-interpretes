@@ -22,6 +22,8 @@ Mas informacion en: http//4thmouse.com/index.php/2007/02/15/using-custom-symbols
 
 action code {:
 	private boolean debug=true;
+	private NodoBase ast=null;
+	private int lineanum=0;
 :}
 
 /* Simbolos Terminales */
@@ -49,17 +51,17 @@ terminal SEMI;
 
 /* Simbolos No Terminales */
 non terminal program;
-non terminal stmt_seq;
-non terminal stmt;
-non terminal if_stmt;
-non terminal repeat_stmt;
-non terminal assign_stmt;
-non terminal read_stmt;
-non terminal write_stmt;
-non terminal exp;
-non terminal simple_exp;
-non terminal term;
-non terminal factor;
+non terminal NodoBase stmt_seq;
+non terminal NodoBase stmt;
+non terminal NodoBase if_stmt;
+non terminal NodoBase repeat_stmt;
+non terminal NodoBase assign_stmt;
+non terminal NodoBase read_stmt;
+non terminal NodoBase write_stmt;
+non terminal NodoBase exp;
+non terminal NodoBase simple_exp;
+non terminal NodoBase term;
+non terminal NodoBase factor;
 
 /* Precedencia de operadores */
 precedence left PLUS;
@@ -68,29 +70,67 @@ precedence left TIMES;
 
 
 /* REGLAS GRAMATICALES */
-program     ::= stmt_seq	{: if(debug) System.out.println("\t regla 1"); :}
+program     ::= stmt_seq:s	{: if(debug) System.out.println("\t regla 1"); 
+					ast = s;
+					:}
 		;
 
-stmt_seq    ::= stmt_seq SEMI stmt	{: if(debug) System.out.println("\t regla 2a"); :}
-            | stmt	{: if(debug) System.out.println("\t regla 2b"); :}
+stmt_seq    ::= stmt_seq:ini SEMI stmt:sent	{: if(debug) System.out.println("\t regla 2a"); 
+						NodoBase hijoActual = ini;
+						if(hijoActual !=null){
+							while(sent.TieneHermano()){
+								hijoActual = hijoActual.getHermanoDerecha();
+							}
+							RESULT=ini;
+						}else{
+							RESULT=sent;
+						}
+						:}
+            | stmt:sent	{: if(debug) System.out.println("\t regla 2b"); 
+				RESULT=sent;				
+				:}
 		;
 
-stmt        ::= if_stmt	{: if(debug) System.out.println("\t regla 3a"); :}
-            | repeat_stmt	{: if(debug) System.out.println("\t regla 3b"); :}
-            | assign_stmt	{: if(debug) System.out.println("\t regla 3c"); :}
-            | read_stmt	{: if(debug) System.out.println("\t regla 3d"); :}
-            | write_stmt	{: if(debug) System.out.println("\t regla 3e"); :}
-            | error	{: if(debug) System.out.println("\t regla 3f"); :}
+stmt        ::= if_stmt:sif	{: if(debug) System.out.println("\t regla 3a"); 
+					RESULT=sif;
+					:}
+            | repeat_stmt:srep	{: if(debug) System.out.println("\t regla 3b"); 
+						RESULT=srep;
+						:}
+            | assign_stmt:sasi	{: if(debug) System.out.println("\t regla 3c"); 
+						RESULT=sasi;
+						:}
+            | read_stmt:slec	{: if(debug) System.out.println("\t regla 3d"); 
+					RESULT=slec;
+					:}
+            | write_stmt:sesc	{: if(debug) System.out.println("\t regla 3e"); 
+					RESULT=sesc;
+					:}
+            | error	{: if(debug) System.out.println("\t regla 3f"); 
+				RESULT=null;
+				:}
             ;
 
-if_stmt     ::= IF exp THEN stmt_seq END	{: if(debug) System.out.println("\t regla 4a"); :}
-		| IF exp THEN stmt_seq ELSE stmt_seq END	{: if(debug) System.out.println("\t regla 4b"); :}
+if_stmt     ::= IF exp:ex THEN stmt_seq:pthen END	{: if(debug) System.out.println("\t regla 4a"); 
+		RESULT = new NodoIf(ex,pthen);
+		:}
+		| IF exp:ex THEN stmt_seq:pthen ELSE stmt_seq:pelse END	{: if(debug) System.out.println("\t regla 4b"); 
+		RESULT = new NodoIf(ex,pthen,pelse);		
+		:}
 		;
 
-repeat_stmt ::= REPEAT stmt_seq UNTIL exp	{: if(debug) System.out.println("\t regla 5"); :}
+repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba	{: if(debug) System.out.println("\t regla 5"); 
+							RESULT = new NodoRepeat(cuerpo,prueba);
+							:}
 		;
 
-assign_stmt ::= ID ASSIGN exp	{: if(debug) System.out.println("\t regla 6"); :}
+assign_stmt ::= ID:variable 	{: if(debug) System.out.println("\t regla 6 parte del medio"); 
+				//lineanum=1000; //Pasar/Obtener la linea correcta por el Simbolo
+				String nombre = variable.getName();
+				:}
+			ASSIGN exp	{: if(debug) System.out.println("\t regla 6 parte final"); 
+				//	RESULT = new NodoAsignacion( quede aqui 666
+					:}
 		;
 
 read_stmt   ::= READ ID	{: if(debug) System.out.println("\t regla 7"); :}
