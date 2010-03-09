@@ -12,7 +12,8 @@ SymbolFactory es una nueva caracteristica que ha sido añadida a las version 11a 
 Mas informacion en: http//4thmouse.com/index.php/2007/02/15/using-custom-symbols-in-cup/
 ***********/
 	public static void main(String args[]) throws Exception {
-		TinySymbolFactory sf = new TinySymbolFactory();
+		//TinySymbolFactory sf = new TinySymbolFactory();
+		SymbolFactory sf = new DefaultSymbolFactory();
 		if (args.length==0) 
 			new parser(new Scanner(System.in,sf),sf).parse();
 		else 
@@ -193,10 +194,22 @@ factor      ::= LPAREN exp:ex RPAREN	{: if(debug) System.out.println("\t regla 1
 							RESULT = ex;
 							:}
 		| NUM:valor	{: if(debug) System.out.println("\t regla 12b"); 
-					RESULT= new NodoValor(valor.toString());
+					System.out.println("Devolvi nodo numero entero");
+					if(valor!=null){
+					RESULT= new NodoValor(valor.toString());					
+					}else{
+					RESULT = null;
+					System.out.println("Ocurrio error en cup # 0005");
+					}
 					:}
 		| ID:variable	{: if(debug) System.out.println("\t regla 12c"); 
+					System.out.println("Devolvi nodo identificador");
+					if(variable!=null){
 					RESULT= new NodoIdentificador(variable.toString());		
+					}else{
+					RESULT = null;
+					System.out.println("Ocurrio error en cup # 0005");
+					}
 					:}
 		| error	{: if(debug) System.out.println("\t regla 12d"); 
 				System.out.println("Ocurrio error en cup # 0003");
