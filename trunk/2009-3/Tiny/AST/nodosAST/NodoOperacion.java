@@ -10,12 +10,14 @@ public class NodoOperacion extends NodoBase {
 		super();
 		this.opIzquierdo = opIzquierdo;
 		this.opDerecho = opDerecho;
+		this.operacion = tipoOperacion;
 	}
 
 	public NodoOperacion(tipoOp tipoOperacion) {
 		super();
 		this.opIzquierdo = null;
 		this.opDerecho = null;
+		this.operacion = tipoOperacion;
 	}
 
 	public NodoBase getOpIzquierdo() {

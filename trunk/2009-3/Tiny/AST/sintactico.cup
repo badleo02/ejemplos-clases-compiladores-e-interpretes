@@ -12,12 +12,15 @@ SymbolFactory es una nueva caracteristica que ha sido añadida a las version 11a 
 Mas informacion en: http//4thmouse.com/index.php/2007/02/15/using-custom-symbols-in-cup/
 ***********/
 	public static void main(String args[]) throws Exception {
-		//TinySymbolFactory sf = new TinySymbolFactory();
 		SymbolFactory sf = new DefaultSymbolFactory();
+		parser parser_obj;
 		if (args.length==0) 
-			new parser(new Scanner(System.in,sf),sf).parse();
+			parser_obj=new parser(new Scanner(System.in,sf),sf);
 		else 
-			new parser(new Scanner(new java.io.FileInputStream(args[0]),sf),sf).parse();
+			parser_obj=new parser(new Scanner(new java.io.FileInputStream(args[0]),sf),sf);
+
+		parser_obj.parse();
+		NodoBase root=parser_obj.action_obj.getASTroot();
 	}
 
 :}
@@ -26,6 +29,12 @@ action code {:
 	private boolean debug=true;
 	private NodoBase ast=null;
 	private int lineanum=0;
+	
+	//Debe ser llamada solo despues de un parse(), en caso contrario retornara null siempre;
+	public NodoBase getASTroot(){
+		return ast;
+	}
+	
 :}
 
 /* Simbolos Terminales */
@@ -80,9 +89,10 @@ program     ::= stmt_seq:s	{: if(debug) System.out.println("\t regla 1");
 stmt_seq    ::= stmt_seq:ini SEMI stmt:sent	{: if(debug) System.out.println("\t regla 2a"); 
 						NodoBase hijoActual = ini;
 						if(hijoActual !=null){
-							while(sent.TieneHermano()){
+							while(hijoActual.TieneHermano()){
 								hijoActual = hijoActual.getHermanoDerecha();
 							}
+							hijoActual.setHermanoDerecha(sent);
 							RESULT=ini;
 						}else{
 							RESULT=sent;
@@ -196,20 +206,19 @@ factor      ::= LPAREN exp:ex RPAREN	{: if(debug) System.out.println("\t regla 1
 		| NUM:valor	{: if(debug) System.out.println("\t regla 12b"); 
 					System.out.println("Devolvi nodo numero entero");
 					if(valor!=null){
-					RESULT= new NodoValor(valor.toString());					
+						RESULT= new NodoValor(valor.toString());					
 					}else{
-					RESULT = null;
-					System.out.println("Ocurrio error en cup # 0005");
+						RESULT = null;
+						System.out.println("Ocurrio error en cup # 0005");
 					}
 					:}
 		| ID:variable	{: if(debug) System.out.println("\t regla 12c"); 
-					System.out.println("Devolvi nodo identificador");
 					if(variable!=null){
-					System.out.println("LEXEMA:" + variable.toString());
-					RESULT= new NodoIdentificador(variable.toString());		
+						System.out.println("Construyendo Nodo ID para Lexema: "+ variable.toString());
+						RESULT= new NodoIdentificador(variable.toString());		
 					}else{
-					RESULT = null;
-					System.out.println("Ocurrio error en cup # 0005");
+						RESULT = null;
+						System.out.println("Ocurrio error en cup # 0005");
 					}
 					:}
 		| error	{: if(debug) System.out.println("\t regla 12d"); 

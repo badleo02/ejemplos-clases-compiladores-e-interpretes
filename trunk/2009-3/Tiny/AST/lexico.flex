@@ -110,10 +110,7 @@ espacio		= [ \t]+
 			return sf.newSymbol("NUM",sym.NUM,new String(yytext()));
 			}
 {identificador}	{	if(debug) System.out.println("token ID");
-				//TODO: Verificar esto funciona :(
-				System.out.println("EStoy mandando Token de id de lexico a cup");
-				Symbol mande = sf.newSymbol("ID",sym.ID,new String(yytext()));
-				return mande;
+				return sf.newSymbol("ID",sym.ID,new String(yytext()));
 			}
 {nuevalinea}       {lineanum++;}
 {espacio}    { /* saltos espacios en blanco*/}
