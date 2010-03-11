@@ -21,6 +21,10 @@ Mas informacion en: http//4thmouse.com/index.php/2007/02/15/using-custom-symbols
 
 		parser_obj.parse();
 		NodoBase root=parser_obj.action_obj.getASTroot();
+		System.out.println();
+		System.out.println("IMPRESION DEL AST GENERADO");
+		System.out.println();
+		ast.Util.imprimirAST(root);
 	}
 
 :}
