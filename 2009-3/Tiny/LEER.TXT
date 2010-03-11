@@ -1,1 +1,3 @@
 Si se desea observar el analizador lexico y sintactico previo a la adicion del codigo del AST debe hacer un checkout del svn en la revision 8.
+
+Si se desea observar el analizador lexico con el codigo del AST incluido debe hacer un checkout del svn en la revision 14.
