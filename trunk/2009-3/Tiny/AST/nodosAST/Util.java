@@ -18,7 +18,7 @@ public class Util {
 		    	System.out.println("Asignacion a: "+((NodoAsignacion)raiz).getIdentificador());
 
 		    else if (raiz instanceof  NodoLeer)  
-		    	System.out.println("Lectura: "+((NodoLeer)raiz).getId());
+		    	System.out.println("Lectura: "+((NodoLeer)raiz).getIdentificador());
 
 		    else if (raiz instanceof  NodoEscribir)
 		    	System.out.println("Escribir");
@@ -104,7 +104,7 @@ static void imprimirNodo( NodoBase raiz )
 	}
 
 	if(	raiz instanceof NodoValor ){
-		System.out.println("NUM, val= "+ ((NodoValor)raiz).getNombre());
+		System.out.println("NUM, val= "+ ((NodoValor)raiz).getValor());
 	}
 
 	if(	raiz instanceof NodoIdentificador ){

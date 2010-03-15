@@ -13,7 +13,7 @@ public class NodoLeer extends NodoBase {
 		id="";
 	}
 
-	public String getId() {
+	public String getIdentificador() {
 		return id;
 	}
 
