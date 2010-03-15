@@ -1,25 +1,24 @@
 package Tiny;
 
 import java.util.*;
-import java.io.*;
+
 
 import ast.NodoAsignacion;
 import ast.NodoBase;
 import ast.NodoEscribir;
 import ast.NodoIdentificador;
 import ast.NodoIf;
-import ast.NodoLeer;
 import ast.NodoOperacion;
 import ast.NodoRepeat;
-import ast.NodoValor;
 
 public class TablaSimbolos {
 	private HashMap<String, RegistroSimbolo> tabla;
-
+	private int direccion;  //Contador de las localidades de memoria asignadas a la tabla
 	
 	public TablaSimbolos() {
 		super();
 		tabla = new HashMap<String, RegistroSimbolo>();
+		direccion=0;
 	}
 
 	public void cargarTabla(NodoBase raiz){
@@ -59,7 +58,7 @@ public class TablaSimbolos {
 		if(tabla.containsKey(identificador)){
 			return false;
 		}else{
-			simbolo= new RegistroSimbolo(identificador,numLinea,-1);
+			simbolo= new RegistroSimbolo(identificador,numLinea,direccion++);
 			tabla.put(identificador,simbolo);
 			return true;			
 		}
@@ -72,9 +71,18 @@ public class TablaSimbolos {
 	
 	public void ImprimirClaves(){
 		System.out.println("*** Tabla de Simbolos ***");
-		for( Iterator it = tabla.keySet().iterator(); it.hasNext();) { 
+		for( Iterator <String>it = tabla.keySet().iterator(); it.hasNext();) { 
             String s = (String)it.next();
-	    System.out.println("Consegui Key: "+s);
+	    System.out.println("Consegui Key: "+s+" con direccion: " + BuscarSimbolo(s).getDireccionMemoria());
 		}
 	}
+
+	public int getDireccion(String Clave){
+		return BuscarSimbolo(Clave).getDireccionMemoria();
+	}
+	
+	/*
+	 * TODO:
+	 * 1. Crear lista con las lineas de codigo donde la variable es usada.
+	 * */
 }

@@ -1,20 +1,19 @@
 package ast;
 
 public class NodoValor extends NodoBase {
-	private String nombre;
+	private int valor;
 
-	public NodoValor(String nombre) {
+	public NodoValor(int valor) {
 		super();
-		this.nombre = nombre;
+		this.valor = valor;
 	}
 
 	public NodoValor() {
 		super();
 	}
-
-	public String getNombre() {
-		return nombre;
+	
+	public int getValor() {
+		return valor;
 	}
-
 
 }
