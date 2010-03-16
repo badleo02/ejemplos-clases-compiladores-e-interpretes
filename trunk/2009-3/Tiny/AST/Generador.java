@@ -21,7 +21,10 @@ public class Generador {
 	/* desplazamientoTmp es una variable inicializada en 0
 	 * y empleada como el desplazamiento de la siguiente localidad
 	 * temporal disponible desde la parte superior o tope de la memoria
-	 * (la que apunta el registro MP).
+	 * (la que apunta el registro MP). ES DE HACER NOTAR QUE EL REGISTRO MP
+	 * TOMA SU VALOR INCIAL DEL DE LA DIRECCION DE MEMORIA[0] AL INICIAR LA EJECUCION DE UN PROGRAMA
+	 * SIENDO POR ESTA RAZON QUE EN EL PRELUDIO SE GUARDA EN EL REGISTRO UtGen.MP (REGISTRO[6])
+	 * EL VALOR DEL DE LA DIRECCION DE MEMORIA[0] (LD) Y LUEGO SE INCIALIZA EL MISMO EN 0 (ST).
 	 * 
 	 * - Se decrementa (desplazamientoTmp--) despues de cada almacenamiento y
 	 * 
@@ -32,6 +35,7 @@ public class Generador {
 	 * y las llamadas a la funcion emitirRM corresponden a una inserccion 
 	 * y extraccion de esta pila
 	 */
+
 	private static int desplazamientoTmp = 0;
 	private static TablaSimbolos tablaSimbolos = null;
 	
